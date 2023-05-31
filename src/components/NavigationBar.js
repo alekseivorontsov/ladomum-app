@@ -48,7 +48,7 @@ const NavigationBar = () => {
         }
     };
 
-    const handleTouchEnd = (e) => {
+    const handleTouchEnd = () => {
         setTouchPosition(null);
     };
 
