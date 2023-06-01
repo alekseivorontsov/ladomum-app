@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 import NavigationBar from "./components/NavigationBar";
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {HashRouter, Route, Routes} from 'react-router-dom';
 
 const Home = () => {
     return (
@@ -18,7 +18,7 @@ const Contact = () => {
 
 const App = () => {
     return (
-        <BrowserRouter>
+        <HashRouter basename="/">
             <NavigationBar/>
             <div id="main">
                 <Routes>
@@ -26,7 +26,7 @@ const App = () => {
                     <Route path="contact" element={<Contact/>}/>
                 </Routes>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
