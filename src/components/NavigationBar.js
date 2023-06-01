@@ -17,42 +17,42 @@ const NavigationBar = () => {
         setIsOpen(false);
     }
 
-    const handleTouchStart = (e) => {
-        if (isOpen) {
-            setTouchPosition(e.touches[0].clientX);
-        } else {
-            // Only start the swipe if touch is on the left half of the screen
-            if (e.touches[0].clientX < window.innerWidth / 2) {
-                setTouchPosition(e.touches[0].clientX);
-            }
-        }
-    };
-
-    const handleTouchMove = (e) => {
-        if (!touchPosition) {
-            return false;
-        }
-
-        let currentTouchPosition = e.touches[0].clientX;
-
-        if (isOpen) {
-            if (touchPosition - currentTouchPosition > SWIPE_THRESHOLD) {
-                setIsOpen(false);
-                setTouchPosition(null);
-            }
-        } else {
-            if (currentTouchPosition - touchPosition > SWIPE_THRESHOLD) {
-                setIsOpen(true);
-                setTouchPosition(null);
-            }
-        }
-    };
-
-    const handleTouchEnd = () => {
-        setTouchPosition(null);
-    };
-
     useEffect(() => {
+        const handleTouchStart = (e) => {
+            if (isOpen) {
+                setTouchPosition(e.touches[0].clientX);
+            } else {
+                // Only start the swipe if touch is on the left half of the screen
+                if (e.touches[0].clientX < window.innerWidth / 2) {
+                    setTouchPosition(e.touches[0].clientX);
+                }
+            }
+        };
+
+        const handleTouchEnd = () => {
+            setTouchPosition(null);
+        };
+
+        const handleTouchMove = (e) => {
+            if (!touchPosition) {
+                return false;
+            }
+
+            let currentTouchPosition = e.touches[0].clientX;
+
+            if (isOpen) {
+                if (touchPosition - currentTouchPosition > SWIPE_THRESHOLD) {
+                    setIsOpen(false);
+                    setTouchPosition(null);
+                }
+            } else {
+                if (currentTouchPosition - touchPosition > SWIPE_THRESHOLD) {
+                    setIsOpen(true);
+                    setTouchPosition(null);
+                }
+            }
+        };
+
         document.addEventListener('touchstart', handleTouchStart, false);
         document.addEventListener('touchmove', handleTouchMove, false);
         document.addEventListener('touchend', handleTouchEnd, false);
@@ -61,7 +61,7 @@ const NavigationBar = () => {
             document.removeEventListener('touchmove', handleTouchMove);
             document.removeEventListener('touchend', handleTouchEnd);
         }
-    }, [touchPosition, isOpen, handleTouchMove, handleTouchStart]);
+    }, [touchPosition, isOpen]);
 
     return (
         <React.Fragment>
