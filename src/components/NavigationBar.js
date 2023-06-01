@@ -76,7 +76,7 @@ const NavigationBar = () => {
                     <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                         <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                             <li>
-                                <Link to="/"
+                                <Link to=""
                                       className={activeItem === '' ? 'md:p-0 text-blue-700' : 'md:p-0'}
                                       onClick={() => setActiveItem('')}
                                 >
@@ -84,7 +84,7 @@ const NavigationBar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/contact"
+                                <Link to="contact"
                                       className={activeItem === 'contact' ? 'md:p-0 text-blue-700' : 'md:p-0'}
                                       onClick={() => setActiveItem('contact')}
                                 >
@@ -113,7 +113,7 @@ const NavigationBar = () => {
                          className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                         <ul className="space-y-2 font-medium">
                             <li>
-                                <Link to="/"
+                                <Link to=""
                                       onClick={() => {
                                           closeSidebar();
                                           setActiveItem('');
@@ -125,7 +125,7 @@ const NavigationBar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/contact"
+                                <Link to="contact"
                                       onClick={() => {
                                           closeSidebar();
                                           setActiveItem('contact');

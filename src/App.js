@@ -22,8 +22,8 @@ const App = () => {
             <NavigationBar/>
             <div id="main">
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/contact" element={<Contact/>}/>
+                    <Route path="" element={<Home/>}/>
+                    <Route path="contact" element={<Contact/>}/>
                 </Routes>
             </div>
         </BrowserRouter>
