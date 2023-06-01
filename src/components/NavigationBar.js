@@ -61,7 +61,7 @@ const NavigationBar = () => {
             document.removeEventListener('touchmove', handleTouchMove);
             document.removeEventListener('touchend', handleTouchEnd);
         }
-    }, [touchPosition, isOpen]);
+    }, [touchPosition, isOpen, handleTouchMove, handleTouchStart]);
 
     return (
         <React.Fragment>
