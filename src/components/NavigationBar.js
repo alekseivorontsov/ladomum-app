@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
-import './NavigationBar.css';
-import {Link} from "react-router-dom";
-import {HiHomeModern, HiOutlineBars3BottomLeft, HiUserGroup} from "react-icons/hi2";
+import {Link, useLocation} from "react-router-dom";
+import {HiEnvelope, HiHomeModern, HiListBullet, HiOutlineBars3BottomLeft} from "react-icons/hi2";
 
 const NavigationBar = () => {
-    const [activeItem, setActiveItem] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [touchPosition, setTouchPosition] = useState(null);
     const SWIPE_THRESHOLD = 100;
+    const location = useLocation();
 
     const openSidebar = () => {
         setIsOpen(true);
@@ -77,16 +76,21 @@ const NavigationBar = () => {
                         <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                             <li>
                                 <Link to=""
-                                      className={activeItem === '' ? 'md:p-0 text-blue-700' : 'md:p-0'}
-                                      onClick={() => setActiveItem('')}
+                                      className={location.pathname === '/' ? 'md:p-0 text-blue-700' : 'md:p-0'}
                                 >
                                     Home
                                 </Link>
                             </li>
                             <li>
+                                <Link to="stays"
+                                      className={location.pathname === '/stays' ? 'md:p-0 text-blue-700' : 'md:p-0'}
+                                >
+                                    Stays
+                                </Link>
+                            </li>
+                            <li>
                                 <Link to="contact"
-                                      className={activeItem === 'contact' ? 'md:p-0 text-blue-700' : 'md:p-0'}
-                                      onClick={() => setActiveItem('contact')}
+                                      className={location.pathname === '/contact' ? 'md:p-0 text-blue-700' : 'md:p-0'}
                                 >
                                     Contact
                                 </Link>
@@ -96,7 +100,6 @@ const NavigationBar = () => {
                     <Link to="/"
                           onClick={() => {
                               closeSidebar();
-                              setActiveItem('');
                           }}
                     >
                         <span
@@ -114,10 +117,7 @@ const NavigationBar = () => {
                         <ul className="space-y-2 font-medium">
                             <li>
                                 <Link to=""
-                                      onClick={() => {
-                                          closeSidebar();
-                                          setActiveItem('');
-                                      }}
+                                      onClick={() => closeSidebar()}
                                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                                 >
                                     <HiHomeModern size={25}/>
@@ -125,14 +125,20 @@ const NavigationBar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="contact"
-                                      onClick={() => {
-                                          closeSidebar();
-                                          setActiveItem('contact');
-                                      }}
+                                <Link to="stays"
+                                      onClick={() => closeSidebar()}
                                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                                 >
-                                    <HiUserGroup size={25}/>
+                                    <HiListBullet size={25}/>
+                                    <span className="ml-3">Stays</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="contact"
+                                      onClick={() => closeSidebar()}
+                                      className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                                >
+                                    <HiEnvelope size={25}/>
                                     <span className="ml-3">Contact</span>
                                 </Link>
                             </li>
