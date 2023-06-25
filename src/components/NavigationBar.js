@@ -79,7 +79,7 @@ const NavigationBar = () => {
                                 <Link to=""
                                       className={location.pathname === '/' ? 'md:p-0 text-blue-700' : 'md:p-0'}
                                 >
-                                    Home
+                                    Home1
                                 </Link>
                             </li>
                             <li>
