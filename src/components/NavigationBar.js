@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {HiEnvelope, HiHomeModern, HiListBullet, HiOutlineBars3BottomLeft} from "react-icons/hi2";
+import {HiBookOpen, HiEnvelope, HiHomeModern, HiOutlineBars3BottomLeft} from "react-icons/hi2";
+import './NavigationBar.css';
 
 const NavigationBar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [touchPosition, setTouchPosition] = useState(null);
     const SWIPE_THRESHOLD = 100;
     const location = useLocation();
 
     const openSidebar = () => {
-        setIsOpen(true);
+        setIsSidebarOpen(true);
     }
 
     const closeSidebar = () => {
-        setIsOpen(false);
+        setIsSidebarOpen(false);
     }
 
     useEffect(() => {
         const handleTouchStart = (e) => {
-            if (isOpen) {
+            if (isSidebarOpen) {
                 setTouchPosition(e.touches[0].clientX);
             } else {
                 // Only start the swipe if touch is on the left half of the screen
@@ -39,14 +40,14 @@ const NavigationBar = () => {
 
             let currentTouchPosition = e.touches[0].clientX;
 
-            if (isOpen) {
+            if (isSidebarOpen) {
                 if (touchPosition - currentTouchPosition > SWIPE_THRESHOLD) {
-                    setIsOpen(false);
+                    setIsSidebarOpen(false);
                     setTouchPosition(null);
                 }
             } else {
                 if (currentTouchPosition - touchPosition > SWIPE_THRESHOLD) {
-                    setIsOpen(true);
+                    setIsSidebarOpen(true);
                     setTouchPosition(null);
                 }
             }
@@ -60,11 +61,11 @@ const NavigationBar = () => {
             document.removeEventListener('touchmove', handleTouchMove);
             document.removeEventListener('touchend', handleTouchEnd);
         }
-    }, [touchPosition, isOpen]);
+    }, [touchPosition, isSidebarOpen]);
 
     return (
         <React.Fragment>
-            <nav className="bg-white border-gray-200 dark:bg-gray-900">
+            <nav className="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 left-0 right-0">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-3 py-4">
                     <button onClick={openSidebar} data-collapse-toggle="navbar-default" type="button"
                             className="inline-flex items-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -82,10 +83,10 @@ const NavigationBar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="stays"
-                                      className={location.pathname === '/stays' ? 'md:p-0 text-blue-700' : 'md:p-0'}
+                                <Link to="bookings"
+                                      className={location.pathname === '/bookings' ? 'md:p-0 text-blue-700' : 'md:p-0'}
                                 >
-                                    Stays
+                                    Bookings
                                 </Link>
                             </li>
                             <li>
@@ -97,20 +98,18 @@ const NavigationBar = () => {
                             </li>
                         </ul>
                     </div>
-                    <Link to="/"
-                          onClick={() => {
-                              closeSidebar();
-                          }}
-                    >
+                    <Link to="/" onClick={() => {
+                        closeSidebar();
+                    }}>
                         <span
                             className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">LADOMUM</span>
                     </Link>
                 </div>
             </nav>
             <div className="sidenav">
-                <aside style={isOpen ? {width: "250px"} : {width: "0"}} id="sidebar-multi-level-sidebar"
+                <aside style={isSidebarOpen ? {width: "250px"} : {width: "0"}} id="sidebar-multi-level-sidebar"
                        className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform sm:translate-x-0">
-                    <div style={isOpen ?
+                    <div style={isSidebarOpen ?
                         {width: "250px", paddingLeft: "1rem", paddingRight: "1rem"} :
                         {width: "0", paddingLeft: "0", paddingRight: "0"}}
                          className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -125,12 +124,12 @@ const NavigationBar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="stays"
+                                <Link to="bookings"
                                       onClick={() => closeSidebar()}
                                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                                 >
-                                    <HiListBullet size={25}/>
-                                    <span className="ml-3">Stays</span>
+                                    <HiBookOpen size={25}/>
+                                    <span className="ml-3">Bookings</span>
                                 </Link>
                             </li>
                             <li>
@@ -146,7 +145,7 @@ const NavigationBar = () => {
                     </div>
                 </aside>
 
-                <div id="overlay" className={isOpen ? "overlay active" : "overlay"} onClick={closeSidebar}></div>
+                <div id="overlay" className={isSidebarOpen ? "overlay active" : "overlay"} onClick={closeSidebar}></div>
             </div>
         </React.Fragment>
     );

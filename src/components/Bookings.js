@@ -7,7 +7,7 @@ import property2 from '../images/property2.jpg';
 import property3 from '../images/property3.jpg';
 import moment from "moment";
 
-const staysObjects = [
+const bookingObjects = [
     {
         id: '57ee42d6-09d3-4c59-ac0a-3f9e4f1c5a2b',
         name: 'Esperanza',
@@ -46,23 +46,23 @@ const staysObjects = [
     }
 ];
 
-const renderUpcoming = (staysObjects) => {
+const renderUpcoming = (bookingObjects) => {
     const now = moment();
-    const upcomingStays = staysObjects.filter(stay => stay.from.isAfter(now));
-    if (!upcomingStays || upcomingStays.length === 0) {
+    const upcomingBookings = bookingObjects.filter(stay => stay.from.isAfter(now));
+    if (!upcomingBookings || upcomingBookings.length === 0) {
         return;
     }
     return (
         <React.Fragment>
             <h1 className="text-xl font-bold mb-4">Upcoming</h1>
-            {upcomingStays.map(upcomingStay => renderStay(upcomingStay))}
+            {upcomingBookings.map(upcomingStay => renderStay(upcomingStay))}
         </React.Fragment>
     );
 };
 
-const renderActive = (staysObjects) => {
+const renderActive = (bookingObjects) => {
     const now = moment();
-    const active = staysObjects.filter(stay => stay.from.isBefore(now) && stay.to.isAfter(now));
+    const active = bookingObjects.filter(stay => stay.from.isBefore(now) && stay.to.isAfter(now));
     if (!active || active.length === 0) {
         return;
     }
@@ -74,9 +74,9 @@ const renderActive = (staysObjects) => {
     );
 };
 
-const renderPast = (staysObjects) => {
+const renderPast = (bookingObjects) => {
     const now = moment();
-    const active = staysObjects.filter(stay => stay.to.isBefore(now));
+    const active = bookingObjects.filter(stay => stay.to.isBefore(now));
     if (!active || active.length === 0) {
         return;
     }
@@ -106,17 +106,17 @@ const renderStay = (stay, backgroundClass) => {
     );
 };
 
-const Stays = () => {
+const Bookings = () => {
     return (
         <div className="w-full max-w-2xl mt-2 md:mt-4 mb-4">
-            <h1 className="text-3xl font-bold mb-4">Stays</h1>
+            <h1 className="text-3xl font-bold mb-4">Bookings</h1>
             <ul className="space-y-4">
-                {renderUpcoming(staysObjects)}
-                {renderActive(staysObjects)}
-                {renderPast(staysObjects)}
+                {renderUpcoming(bookingObjects)}
+                {renderActive(bookingObjects)}
+                {renderPast(bookingObjects)}
             </ul>
         </div>
     );
 };
 
-export default Stays;
+export default Bookings;
